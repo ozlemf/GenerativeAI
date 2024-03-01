@@ -1,4 +1,4 @@
-const http = require("http");
+/*const http = require("http");
 const fs = require("fs");
 const path = require("path");
 
@@ -45,7 +45,7 @@ const server = http.createServer((req, res) => {
 
 server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
-});
+}); */
 
 // Ürün açıklamasının eksik özelliklerini varsayılan değerlerle doldur
 function fillProductDescription(productDescription) {
