@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Generative AI Product Description Generator</title>
+    <style > 
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f9f9f9;
+      }
+
+      .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+      }
+
+      h1 {
+        font-size: 36px;
+        color: #333;
+        text-align: center;
+      }
+
+      h1 span {
+        color: #007bff;
+      }
+
+      form {
+        margin-top: 20px;
+        text-align: center;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+        color: #555;
+      }
+
+      input, textarea {
+        width: calc(100% - 22px);
+        padding: 10px;
+        margin: 5px 0 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+
+      button {
+        width: calc(100% - 22px);
+        padding: 10px;
+        margin-top: 10px;
+        border: none;
+        border-radius: 5px;
+        background-color: #007bff;
+        color: #fff;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      button:hover {
+        background-color: #0056b3;
+      }
+
+      #output {
+        margin-top: 20px;
+        padding: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #fff;
+        white-space: pre-line;
+      }
+
+    </style>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Generative <span>AI Product Description Generator</span></h1>
+      <form id="productForm">
+        <label for="productName">Product Name:</label>
+        <input type="text" id="productName" name="productName" required />
+        <label for="productDescription">Product Description:</label>
+        <textarea
+          id="productDescription"
+          name="productDescription"
+          rows="4"
+          required
+        ></textarea>
+        <button type="submit">Generate</button>
+      </form>
+      <div id="output"></div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(() => {
+        $("#productForm").submit(async (event) => {
+          event.preventDefault();
+          const productName = $("#productName").val();
+          const productDescription = $("#productDescription").val();
+
+          const response = await fetch("/generate", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ productName, productDescription }),
+          });
+
+          const data = await response.json();
+          $("#output").html(data.generatedText);
+        });
+      });
+    </script>
+  </body>
+</html>
